@@ -7,5 +7,6 @@ namespace MyKAFKA.Consumer.Web.MyMessage
 {
     public class KafkaMessage
     {
+
     }
 }
