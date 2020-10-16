@@ -32,6 +32,11 @@ namespace MyPOMCreate
 
             foreach (FileInfo file in folder.GetFiles("*.jar"))
             {
+                if (!file.Name.Contains("chemaxon"))
+                {
+                    continue;
+                }
+
                 XmlElement dependency = CreateNode(doc,file);
                 root.AppendChild(dependency);
             }
@@ -61,7 +66,7 @@ namespace MyPOMCreate
 
             XmlElement scope = doc.CreateElement("scope");
             scope.InnerText = "system";
-            dependency.AppendChild(version);
+            dependency.AppendChild(scope);
 
             XmlElement systemPath = doc.CreateElement("systemPath");
             systemPath.InnerText = "${pom.basedir}/src/main/webapp/WEB-INF/lib/" + file.Name;
