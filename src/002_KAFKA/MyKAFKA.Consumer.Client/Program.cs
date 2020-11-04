@@ -43,8 +43,6 @@ namespace MyKAFKA.Consumer.Client
                 }
                 consumer.Close();
             }
-
         }
-
     }
 }
