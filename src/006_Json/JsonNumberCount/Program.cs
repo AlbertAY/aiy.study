@@ -11,20 +11,24 @@ namespace JsonNumberCount
 {
     class Program
     {
+        static string path = String.Empty;
         static void Main(string[] args)
         {
             login:
             try
             {
 
-                
-                Console.Write("请输入json的绝对路径（回车确定）：");
+                if (String.IsNullOrEmpty(path))
+                {
+                    Console.Write("请输入json的绝对路径（回车确定）：");
 
-                string path = Console.ReadLine();
+                    path = Console.ReadLine();
+                }                
 
                 if (!File.Exists(path))
                 {
                     Console.WriteLine("输入的路径错误!");
+                    path = String.Empty;
                     goto login;
                 }                
 
@@ -42,13 +46,16 @@ namespace JsonNumberCount
 
                 if (String.IsNullOrEmpty(json))
                 {
-                    Console.Write("Json 获取失败！");
+                    Console.WriteLine("Json 获取失败！");
                 }
                 else
                 {                  
                     dynamic jsonObj = JsonConvert.DeserializeObject<dynamic>(json);
 
                     Console.WriteLine("Json数组的数据量是：" + jsonObj?.Count);
+
+                    jsonObj = null;
+                    System.GC.Collect();
                 }
             }
             catch (Exception ex)
@@ -64,8 +71,6 @@ namespace JsonNumberCount
             {
                 goto login;
             }
-
-
         }
     }
 }

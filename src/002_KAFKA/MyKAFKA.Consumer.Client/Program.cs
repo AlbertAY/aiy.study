@@ -18,10 +18,13 @@ namespace MyKAFKA.Consumer.Client
 
         public static void ThisConsume() 
         {
+            var bootstrapServers = System.Configuration.ConfigurationManager.AppSettings["BootstrapServers"];
+
             var config = new ConsumerConfig
             {
-                BootstrapServers = "192.168.0.7:9092",//
+                BootstrapServers = bootstrapServers,//
                 GroupId = "foo",
+                AllowAutoCreateTopics=true
                 //AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
@@ -31,6 +34,8 @@ namespace MyKAFKA.Consumer.Client
             {
                 //订阅，topic为 test的
                 consumer.Subscribe("test");
+
+                
 
                 while (cancelled)
                 {

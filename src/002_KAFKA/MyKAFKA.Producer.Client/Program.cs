@@ -23,16 +23,21 @@ namespace MyKAFKA.Producer.Client
 
         public static async void Send()
         {
+            var bootstrapServers = System.Configuration.ConfigurationManager.AppSettings["BootstrapServers"];
+
             var config = new ProducerConfig
             {
-                BootstrapServers = "192.168.0.7:9092",//可以配置多个集群，逗号分隔
+                BootstrapServers = bootstrapServers,//可以配置多个集群，逗号分隔
             };
 
             using (var producer = new ProducerBuilder<string, string>(config).Build())
             {
+               
                 while (true)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(1000);
+
+
 
                     string msg = $"a log message {DateTime.Now.ToString()}";
 
